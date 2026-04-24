@@ -1,0 +1,86 @@
+{
+  "name": "code-slayer",
+  "displayName": "Code Slayer",
+  "description": "写代码产生敌人，按快捷键斩杀，连击越高敌人越多，写Bug出Boss！",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeraytang/CodeSlayerExtension.git"
+  },
+  "version": "1.0.2",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:codeSlayer.start",
+    "onCommand:codeSlayer.stop",
+    "onCommand:codeSlayer.slay",
+    "onCommand:codeSlayer.saveAndSlay"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codeSlayer.start",
+        "title": "Code Slayer: 开始游戏"
+      },
+      {
+        "command": "codeSlayer.stop",
+        "title": "Code Slayer: 停止游戏"
+      },
+      {
+        "command": "codeSlayer.slay",
+        "title": "Code Slayer: 斩杀！"
+      },
+      {
+        "command": "codeSlayer.saveAndSlay",
+        "title": "Code Slayer: 保存并斩杀"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "codeSlayer.saveAndSlay",
+        "key": "ctrl+s",
+        "when": "editorTextFocus && codeSlayer.gameActive"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Code Slayer",
+        "properties": {
+          "codeSlayer.monsterSpawnMode": {
+            "type": "string",
+            "enum": ["onTyping", "onError", "hybrid"],
+            "default": "onTyping",
+            "description": "怪物生成模式: onTyping(换行出怪), onError(错误出怪), hybrid(混合模式)"
+          },
+          "codeSlayer.maxMonsters": {
+            "type": "number",
+            "default": 30,
+            "minimum": 5,
+            "maximum": 100,
+            "description": "最大怪物数量"
+          },
+          "codeSlayer.errorDetectionDelay": {
+            "type": "number",
+            "default": 500,
+            "minimum": 100,
+            "maximum": 2000,
+            "description": "错误检测延迟(毫秒)"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -p ./ -w"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.0",
+    "@types/vscode": "^1.75.0",
+    "typescript": "^5.0.0"
+  }
+}
